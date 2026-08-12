@@ -66,7 +66,7 @@ describe("pingRegion", () => {
   it("aborts an attempt that exceeds the 4s timeout and classifies it as timeout", async () => {
     vi.useFakeTimers();
     const fetchImpl = vi.fn(
-      (_url: string, init?: RequestInit) =>
+      (_input: RequestInfo | URL, init?: RequestInit) =>
         new Promise<Response>((_resolve, reject) => {
           init?.signal?.addEventListener("abort", () =>
             reject(
@@ -146,8 +146,8 @@ describe("pingAllRegions", () => {
       makeRegion(`R${i}`, `https://r${i}.test/ping`),
     );
     // One region's endpoint always rejects; the other nine always resolve.
-    const fetchImpl = vi.fn((url: string) =>
-      url.includes("r1.test")
+    const fetchImpl = vi.fn((input: RequestInfo | URL) =>
+      String(input).includes("r1.test")
         ? Promise.reject(new TypeError("Failed to fetch"))
         : Promise.resolve(okResponse()),
     );
