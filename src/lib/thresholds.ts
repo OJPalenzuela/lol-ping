@@ -42,3 +42,11 @@ export const TIER_META: Record<
   orange: { label: "Fair", icon: SignalLow },
   red: { label: "Poor", icon: TriangleAlert },
 };
+
+/** Tailwind classes per latency tier — composed via className on shadcn Badge. */
+export const TIER_CLASSES: Record<LatencyTier, string> = {
+  green: "text-tier-green bg-tier-green/10 border-tier-green/30",
+  yellow: "text-tier-yellow bg-tier-yellow/10 border-tier-yellow/30",
+  orange: "text-tier-orange bg-tier-orange/10 border-tier-orange/30",
+  red: "text-tier-red bg-tier-red/10 border-tier-red/30",
+};

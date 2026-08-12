@@ -19,10 +19,6 @@ const badgeVariants = cva(
         ghost:
           "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
         link: "text-primary underline-offset-4 hover:underline",
-        ping_green: "text-tier-green bg-tier-green/10 border-tier-green/30",
-        ping_yellow: "text-tier-yellow bg-tier-yellow/10 border-tier-yellow/30",
-        ping_orange: "text-tier-orange bg-tier-orange/10 border-tier-orange/30",
-        ping_red: "text-tier-red bg-tier-red/10 border-tier-red/30",
       },
     },
     defaultVariants: {
