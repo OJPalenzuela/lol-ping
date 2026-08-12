@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { Region } from "@/types/ping";
 
-import { pingAllRegions, pingRegion } from "./ping";
+import { pingAllRegions, pingRegion, sortResults } from "./ping";
 
 const okResponse = () => new Response(null, { status: 200 });
 
@@ -165,5 +165,46 @@ describe("pingAllRegions", () => {
     // results stay in input order
     expect(results[0]?.region.code).toBe("R0");
     expect(results[9]?.region.code).toBe("R9");
+  });
+});
+
+describe("sortResults", () => {
+  function result(code: string, latencyMs: number | null): PingResult {
+    return {
+      region: makeRegion(code, `https://${code.toLowerCase()}.test/ping`),
+      latencyMs,
+      attempts: latencyMs === null ? [] : [latencyMs],
+    };
+  }
+
+  it("sorts successful results ascending by latency", () => {
+    const sorted = sortResults([
+      result("NA", 150),
+      result("EUW", 80),
+      result("KR", 120),
+    ]);
+
+    expect(sorted.map((r) => r.region.code)).toEqual(["EUW", "KR", "NA"]);
+  });
+
+  it("keeps failed regions after successes without failing the sort", () => {
+    const sorted = sortResults([
+      result("NA", 150),
+      result("CN", null),
+      result("EUW", 80),
+      result("JP", null),
+    ]);
+
+    expect(sorted.map((r) => r.region.code)).toEqual(["EUW", "NA", "CN", "JP"]);
+  });
+
+  it("breaks latency ties deterministically by input (table) order", () => {
+    const sorted = sortResults([
+      result("NA", 100),
+      result("EUW", 100),
+      result("KR", 100),
+    ]);
+
+    expect(sorted.map((r) => r.region.code)).toEqual(["NA", "EUW", "KR"]);
   });
 });
