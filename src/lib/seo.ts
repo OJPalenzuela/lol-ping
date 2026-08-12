@@ -11,7 +11,7 @@ export const SITE = {
   name: "LoL Ping Test",
   description:
     "Check your League of Legends ping to all 10 regional servers, compare latency, find the best server for you, and monitor your connection.",
-  url: "https://lop-ing.com",
+  url: "https://lol-ping-op.vercel.app",
   locale: "en_US",
 } as const;
 
