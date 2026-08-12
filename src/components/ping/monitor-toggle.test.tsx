@@ -1,5 +1,4 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { MonitorToggle } from "./monitor-toggle";
@@ -25,12 +24,11 @@ describe("MonitorToggle", () => {
     expect(screen.getByRole("button", { name: /paused/i })).toBeInTheDocument();
   });
 
-  it("fires onToggle on click", async () => {
-    const user = userEvent.setup();
+  it("fires onToggle on click", () => {
     const onToggle = vi.fn();
     render(<MonitorToggle active={false} paused={false} onToggle={onToggle} />);
 
-    await user.click(screen.getByRole("button", { name: /start monitoring/i }));
+    fireEvent.click(screen.getByRole("button", { name: /start monitoring/i }));
 
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
