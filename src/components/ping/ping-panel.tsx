@@ -9,6 +9,7 @@ import {
   Card,
   CardAction,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -21,7 +22,7 @@ import { PingRow } from "./ping-row";
 import { PingSkeleton } from "./ping-skeleton";
 
 /** Client island composing the ping hook, rows, toggle and history. */
-export function PingPanel() {
+export function PingPanel({ description }: { description?: string }) {
   const { state, startPing, toggleMonitor } = usePingTest();
   const [visible, setVisible] = useState(true);
 
@@ -53,6 +54,11 @@ export function PingPanel() {
             </Badge>
           )}
         </div>
+        {description && (
+          <CardDescription className="max-w-2xl text-sm leading-relaxed">
+            {description}
+          </CardDescription>
+        )}
         <CardAction>
           <div className="flex items-center gap-3">
             <Button
