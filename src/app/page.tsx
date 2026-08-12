@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { PingPanel } from "@/components/ping/ping-panel";
 import {
   FAQ_ITEMS,
@@ -6,6 +8,11 @@ import {
   webApplicationJsonLd,
 } from "@/lib/seo";
 import { REGIONS } from "@/lib/regions";
+
+export const metadata: Metadata = {
+  title: "Check Your League of Legends Ping",
+  description: SITE.description,
+};
 
 export default function Home() {
   return (
