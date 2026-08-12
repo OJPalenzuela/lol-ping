@@ -32,7 +32,7 @@ export function PingRow({ result, history, isBest, rank }: PingRowProps) {
   return (
     <li
       className={cn(
-        "border-border bg-card flex items-center gap-4 rounded-lg border px-4 py-3.5",
+        "border-border bg-card flex items-center gap-4 rounded-lg border px-5 py-5",
         isBest && "border-gold/60 bg-gold/[0.06]",
       )}
     >
