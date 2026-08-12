@@ -53,8 +53,8 @@ Commit boundary: each RED+GREEN pair = one conventional commit (`test:` + `feat:
 - [x] 3.5 RED: `src/components/ping/ping-row.test.tsx` — sorted order render, best highlighted, deterministic tie-break [ping-testing]
 - [x] 3.6 GREEN: `ping-row.tsx` — rank, flag, name, badge; `isBest` highlight
 - [x] 3.7 GREEN: `monitor-toggle.tsx` (44px target, text/icon running|paused|idle) + `ping-skeleton.tsx` [ping-monitor]
-- [ ] 3.8 GREEN: `ping-history.tsx` — hand-rolled SVG sparkline (≥2 entries), accessible name, placeholder below, localStorage read in effect only [ping-history]
-- [ ] 3.9 GREEN: `ping-panel.tsx` — composes hook + rows + toggle + history; results region `aria-live="polite"` + `aria-busy` [site-seo]
+- [x] 3.8 GREEN: `ping-history.tsx` — hand-rolled SVG sparkline (≥2 entries), accessible name, placeholder below, localStorage read in effect only [ping-history]
+- [x] 3.9 GREEN: `ping-panel.tsx` — composes hook + rows + toggle + history; results region `aria-live="polite"` + `aria-busy` [site-seo]
 
 ## Phase 4: SEO Shell + Integration (PR 5)
 
