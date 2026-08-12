@@ -10,7 +10,6 @@ import {
   CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -81,7 +80,7 @@ export function PingPanel({ description }: { description?: string }) {
         </CardAction>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="flex flex-col gap-6">
         <div
           aria-label="Ping results"
           aria-live="polite"
@@ -92,7 +91,7 @@ export function PingPanel({ description }: { description?: string }) {
 
           {(state.status === "results" || state.updating) &&
             state.results.length > 0 && (
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-3">
                 {state.results.map((result, index) => (
                   <PingRow
                     key={result.region.code}
@@ -122,13 +121,9 @@ export function PingPanel({ description }: { description?: string }) {
             </p>
           )}
         </div>
-      </CardContent>
 
-      {state.status !== "idle" && (
-        <CardFooter>
-          <PingHistory history={state.history} />
-        </CardFooter>
-      )}
+        {state.status !== "idle" && <PingHistory history={state.history} />}
+      </CardContent>
     </Card>
   );
 }
