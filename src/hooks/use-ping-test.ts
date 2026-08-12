@@ -75,10 +75,9 @@ export function usePingTest(opts: UsePingTestOptions = {}) {
   const inFlight = useRef(false);
   const monitorRef = useRef(false);
   const pingAllRef = useRef(pingAll);
-  pingAllRef.current = pingAll;
-
   const runRef = useRef<() => void>(() => {});
-  runRef.current = () => {
+
+  const run = () => {
     if (inFlight.current) return; // never overlap runs
     inFlight.current = true;
     dispatch({ type: "start" });
@@ -97,6 +96,12 @@ export function usePingTest(opts: UsePingTestOptions = {}) {
         inFlight.current = false;
       });
   };
+
+  // Keep refs in sync inside effects — refs must never be written during render.
+  useEffect(() => {
+    pingAllRef.current = pingAll;
+    runRef.current = run;
+  });
 
   // Hydrate history once on mount (client-only — localStorage never in SSR).
   useEffect(() => {
