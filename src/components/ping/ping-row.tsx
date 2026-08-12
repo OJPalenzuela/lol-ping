@@ -7,9 +7,11 @@ import type { HistoryEntry, PingResult } from "@/types/ping";
 import { PingBadge } from "./ping-badge";
 import { PingError } from "./ping-error";
 
-/** Compact sparkline dimensions for inline row display. */
-const ROW_SPARKLINE_W = 80;
-const ROW_SPARKLINE_H = 24;
+/** How many recent history entries to keep in the inline sparkline. */
+const SPARKLINE_MAX_ENTRIES = 30;
+/** Sparkline dimensions. */
+const ROW_SPARKLINE_W = 100;
+const ROW_SPARKLINE_H = 28;
 
 interface PingRowProps {
   result: PingResult;
@@ -21,7 +23,8 @@ interface PingRowProps {
 /** One region in the results list: rank, flag, name, trend sparkline, latency badge or error. */
 export function PingRow({ result, history, isBest, rank }: PingRowProps) {
   const failed = result.latencyMs === null;
-  const entries = history ?? [];
+  // Keep only the last N entries so the sparkline doesn't compact over time.
+  const entries = (history ?? []).slice(-SPARKLINE_MAX_ENTRIES);
   const hasTrend = entries.length >= 2;
   // Persisted newest-first; plot oldest → newest left-to-right.
   const points = hasTrend
@@ -46,13 +49,13 @@ export function PingRow({ result, history, isBest, rank }: PingRowProps) {
       </span>
 
       {/* Inline trend sparkline */}
-      <span className="hidden w-20 shrink-0 sm:block" aria-hidden="true">
+      <span className="hidden w-[100px] shrink-0 sm:block" aria-hidden="true">
         {hasTrend ? (
           <svg
             role="img"
             aria-label={`Ping trend for ${result.region.name}`}
             viewBox={`0 0 ${ROW_SPARKLINE_W} ${ROW_SPARKLINE_H}`}
-            className="text-gold/60 h-6 w-20"
+            className="text-gold/60 h-7 w-[100px]"
           >
             <polyline
               points={points}
@@ -65,7 +68,7 @@ export function PingRow({ result, history, isBest, rank }: PingRowProps) {
         ) : (
           <svg
             viewBox={`0 0 ${ROW_SPARKLINE_W} ${ROW_SPARKLINE_H}`}
-            className="text-border h-6 w-20"
+            className="text-border h-7 w-[100px]"
           >
             <line
               x1="0"

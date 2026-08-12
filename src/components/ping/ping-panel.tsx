@@ -62,7 +62,8 @@ export function PingPanel({ description }: { description?: string }) {
             <Button
               onClick={startPing}
               disabled={busy}
-              className="bg-gold text-background hover:bg-gold/90 rounded-full"
+              size="lg"
+              className="bg-gold text-background hover:bg-gold/90 h-11 rounded-full"
             >
               <Icon
                 className={state.status === "loading" ? "animate-spin" : ""}
