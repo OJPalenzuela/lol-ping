@@ -37,12 +37,7 @@ export function PingBadge({
         className={cn("size-4", updating && "animate-spin")}
         aria-hidden="true"
       />
-      <span
-        className="tabular-nums"
-        aria-label={updating ? "Updating" : undefined}
-      >
-        {updating ? "..." : `${result.latencyMs} ms`}
-      </span>
+      <span className="tabular-nums">{result.latencyMs} ms</span>
       {!updating && <span className="sr-only">{meta.label}</span>}
     </Badge>
   );
