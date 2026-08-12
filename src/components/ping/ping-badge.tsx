@@ -1,27 +1,6 @@
-import {
-  SignalHigh,
-  SignalLow,
-  SignalMedium,
-  TriangleAlert,
-} from "lucide-react";
-import type { ComponentType } from "react";
-
 import { Badge } from "@/components/ui/badge";
-import { classifyLatency, type LatencyTier } from "@/lib/thresholds";
+import { classifyLatency, TIER_META } from "@/lib/thresholds";
 import type { PingResult } from "@/types/ping";
-
-export const TIER_META: Record<
-  LatencyTier,
-  {
-    label: string;
-    icon: ComponentType<{ className?: string }>;
-  }
-> = {
-  green: { label: "Excellent", icon: SignalHigh },
-  yellow: { label: "Good", icon: SignalMedium },
-  orange: { label: "Fair", icon: SignalLow },
-  red: { label: "Poor", icon: TriangleAlert },
-};
 
 /**
  * Latency badge using shadcn/ui Badge with custom latency variants.
