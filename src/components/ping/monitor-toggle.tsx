@@ -1,6 +1,6 @@
 import { Activity, CirclePause, Play } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface MonitorToggleProps {
   active: boolean;
@@ -9,8 +9,8 @@ interface MonitorToggleProps {
 }
 
 /**
- * Start/stop the continuous monitor. 44px tall target (WCAG 2.5.8),
- * state conveyed by text + icon — never color-only.
+ * Start/stop the continuous monitor using shadcn/ui Button.
+ * State conveyed by text + icon — never color-only (WCAG 2.5.8).
  */
 export function MonitorToggle({
   active,
@@ -19,15 +19,15 @@ export function MonitorToggle({
 }: MonitorToggleProps) {
   if (!active) {
     return (
-      <button
-        type="button"
+      <Button
+        variant="outline"
         aria-pressed={false}
         onClick={onToggle}
-        className="border-gold/60 text-gold hover:bg-gold/10 focus-visible:outline-ring inline-flex h-11 min-w-44 items-center justify-center gap-2 rounded-full border px-5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+        className="border-gold/60 text-gold hover:bg-gold/10 h-11 min-w-44 rounded-full"
       >
         <Play className="size-4" aria-hidden="true" />
         Start monitoring
-      </button>
+      </Button>
     );
   }
 
@@ -35,19 +35,14 @@ export function MonitorToggle({
   const Icon = paused ? CirclePause : Activity;
 
   return (
-    <button
-      type="button"
+    <Button
+      variant={paused ? "ghost" : "destructive"}
       aria-pressed={true}
       onClick={onToggle}
-      className={cn(
-        "focus-visible:outline-ring inline-flex h-11 min-w-44 items-center justify-center gap-2 rounded-full border px-5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2",
-        paused
-          ? "border-border bg-card text-muted-foreground"
-          : "border-destructive/60 text-destructive hover:bg-destructive/10",
-      )}
+      className="h-11 min-w-44 rounded-full"
     >
       <Icon className="size-4" aria-hidden="true" />
       {label}
-    </button>
+    </Button>
   );
 }
