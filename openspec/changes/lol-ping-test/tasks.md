@@ -58,14 +58,14 @@ Commit boundary: each RED+GREEN pair = one conventional commit (`test:` + `feat:
 
 ## Phase 4: SEO Shell + Integration (PR 5)
 
-- [ ] 4.1 GREEN: `src/lib/seo.ts` — `SITE` config (placeholder `lop-ing.com`, single swap point) + JSON-LD WebApplication + FAQPage builders [site-seo]
-- [ ] 4.2 GREEN: `src/app/layout.tsx` — title/description/canonical/OG/Twitter from `seo.ts`, `metadataBase`, display+body fonts via `next/font` [site-seo]
-- [ ] 4.3 GREEN: `src/app/sitemap.ts` + `src/app/robots.ts` — sitemap URL from `SITE`; robots references sitemap [site-seo]
-- [ ] 4.4 GREEN: `src/app/page.tsx` — RSC shell: exactly one H1, one H2 per region, visible FAQ matching JSON-LD, embeds `<PingPanel/>` [site-seo]
+- [x] 4.1 GREEN: `src/lib/seo.ts` — `SITE` config (placeholder `lop-ing.com`, single swap point) + JSON-LD WebApplication + FAQPage builders [site-seo]
+- [x] 4.2 GREEN: `src/app/layout.tsx` — title/description/canonical/OG/Twitter from `seo.ts`, `metadataBase`, display+body fonts via `next/font` [site-seo]
+- [x] 4.3 GREEN: `src/app/sitemap.ts` + `src/app/robots.ts` — sitemap URL from `SITE`; robots references sitemap [site-seo]
+- [x] 4.4 GREEN: `src/app/page.tsx` — RSC shell: exactly one H1, one H2 per region, visible FAQ matching JSON-LD, embeds `<PingPanel/>` [site-seo]
 
 ## Phase 5: Verification & Polish
 
-- [ ] 5.1 VERIFY: `pnpm test` + `pnpm lint` + `npx tsc --noEmit` + `pnpm build` all green
-- [ ] 5.2 VERIFY: `pnpm dev` — Lighthouse SEO ≥90, JSON-LD validates, keyboard-only flow, 44px targets, no layout jitter on updates [site-seo/theme]
-- [ ] 5.3 VERIFY: re-check CN endpoint reachability; resolve display font (Chakra Petch vs Rajdhani) [design open questions]
-- [ ] 5.4 CLEAN: remove starter-page leftovers; flag placeholder domain swap as pre-launch task
+- [x] 5.1 VERIFY: `pnpm test` + `pnpm lint` + `npx tsc --noEmit` + `pnpm build` all green
+- [x] 5.2 VERIFY: `pnpm dev` — Lighthouse SEO ≥90, JSON-LD validates, keyboard-only flow, 44px targets, no layout jitter on updates [site-seo/theme]
+- [x] 5.3 VERIFY: re-check CN endpoint reachability; resolve display font (Chakra Petch vs Rajdhani) [design open questions]
+- [x] 5.4 CLEAN: remove starter-page leftovers; flag placeholder domain swap as pre-launch task
