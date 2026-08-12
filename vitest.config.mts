@@ -7,6 +7,8 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
     css: true,
+    // RTL auto-cleanup requires a global afterEach.
+    globals: true,
   },
   resolve: {
     alias: {
