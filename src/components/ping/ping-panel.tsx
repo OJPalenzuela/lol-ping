@@ -99,6 +99,7 @@ export function PingPanel({ description }: { description?: string }) {
                     history={state.history[result.region.code] ?? []}
                     isBest={index === 0 && result.latencyMs !== null}
                     rank={index + 1}
+                    updating={state.updating}
                   />
                 ))}
               </ul>

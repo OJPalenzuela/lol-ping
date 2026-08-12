@@ -18,10 +18,17 @@ interface PingRowProps {
   history: HistoryEntry[];
   isBest: boolean;
   rank: number;
+  updating?: boolean;
 }
 
 /** One region in the results list: rank, flag, name, Best badge, trend sparkline, latency. */
-export function PingRow({ result, history, isBest, rank }: PingRowProps) {
+export function PingRow({
+  result,
+  history,
+  isBest,
+  rank,
+  updating,
+}: PingRowProps) {
   const failed = result.latencyMs === null;
   const entries = (history ?? []).slice(-SPARKLINE_MAX_ENTRIES);
   const hasTrend = entries.length >= 2;
@@ -90,7 +97,7 @@ export function PingRow({ result, history, isBest, rank }: PingRowProps) {
       {failed && result.failure ? (
         <PingError failure={result.failure} region={result.region} />
       ) : (
-        <PingBadge result={result} />
+        <PingBadge result={result} updating={updating} />
       )}
     </li>
   );
