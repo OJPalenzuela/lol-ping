@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import type { Region } from "@/types/ping";
+import type { PingResult, Region } from "@/types/ping";
 
 import { pingAllRegions, pingRegion, sortResults } from "./ping";
 
