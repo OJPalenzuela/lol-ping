@@ -16,7 +16,6 @@ import {
 import { usePingTest } from "@/hooks/use-ping-test";
 
 import { MonitorToggle } from "./monitor-toggle";
-import { PingHistory } from "./ping-history";
 import { PingRow } from "./ping-row";
 import { PingSkeleton } from "./ping-skeleton";
 
@@ -80,7 +79,7 @@ export function PingPanel({ description }: { description?: string }) {
         </CardAction>
       </CardHeader>
 
-      <CardContent className="flex flex-col gap-6">
+      <CardContent>
         <div
           aria-label="Ping results"
           aria-live="polite"
@@ -121,8 +120,6 @@ export function PingPanel({ description }: { description?: string }) {
             </p>
           )}
         </div>
-
-        {state.status !== "idle" && <PingHistory history={state.history} />}
       </CardContent>
     </Card>
   );
