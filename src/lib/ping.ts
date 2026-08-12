@@ -116,3 +116,16 @@ export async function pingAllRegions(
     };
   });
 }
+
+/**
+ * Sort results ascending by latency. Failed regions (no measurement) sort
+ * after every success. Ties keep input order — stable sort, so the region
+ * table order is the deterministic tie-break (design D10).
+ */
+export function sortResults(results: PingResult[]): PingResult[] {
+  return [...results].sort((a, b) => {
+    const latencyA = a.latencyMs ?? Number.POSITIVE_INFINITY;
+    const latencyB = b.latencyMs ?? Number.POSITIVE_INFINITY;
+    return latencyA - latencyB;
+  });
+}

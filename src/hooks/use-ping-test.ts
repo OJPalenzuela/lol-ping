@@ -3,7 +3,7 @@
 import { useEffect, useReducer, useRef } from "react";
 
 import { HISTORY_STORAGE_KEY, loadHistory, saveHistory } from "@/lib/history";
-import { pingAllRegions } from "@/lib/ping";
+import { pingAllRegions, sortResults } from "@/lib/ping";
 import { REGIONS } from "@/lib/regions";
 import type { HistoryEntry, PingResult, PingStatus } from "@/types/ping";
 
@@ -84,10 +84,11 @@ export function usePingTest(opts: UsePingTestOptions = {}) {
     pingAllRef
       .current(REGIONS)
       .then((results) => {
-        saveHistory(results);
+        const sorted = sortResults(results);
+        saveHistory(sorted);
         dispatch({
           type: "finish",
-          results,
+          results: sorted,
           history: loadHistory(),
           updatedAt: new Date(),
         });
