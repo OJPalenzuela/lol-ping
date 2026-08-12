@@ -5,6 +5,10 @@
       {
         "files": ["src/components/ui/badge.tsx"],
         "rules": ["react-doctor/only-export-components"]
+      },
+      {
+        "files": ["src/app/opengraph-image.tsx"],
+        "rules": ["react-doctor/nextjs-no-edge-og-runtime"]
       }
     ]
   }
