@@ -41,8 +41,8 @@ Commit boundary: each RED+GREEN pair = one conventional commit (`test:` + `feat:
 
 ## Phase 2: Monitor State Machine (PR 2)
 
-- [ ] 2.1 RED: `src/hooks/use-ping-test.test.ts` — idle→loading→results/error transitions, 5s cadence, no-overlap skip, visibility pause + fresh run on visible, monitor default off, clearHistory [ping-monitor]
-- [ ] 2.2 GREEN: `src/hooks/use-ping-test.ts` — `useReducer` state machine, `setInterval` 5s with in-flight ref guard, `visibilitychange` effect
+- [x] 2.1 RED: `src/hooks/use-ping-test.test.ts` — idle→loading→results/error transitions, 5s cadence, no-overlap skip, visibility pause + fresh run on visible, monitor default off, clearHistory [ping-monitor]
+- [x] 2.2 GREEN: `src/hooks/use-ping-test.ts` — `useReducer` state machine, `setInterval` 5s with in-flight ref guard, `visibilitychange` effect
 
 ## Phase 3: Theme + Components (PR 3, PR 4)
 
