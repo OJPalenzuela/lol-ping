@@ -6,11 +6,19 @@ import robots from "./robots";
 import sitemap from "./sitemap";
 
 describe("sitemap", () => {
-  it("serves the homepage with the configured base URL", () => {
+  it("includes the homepage and all SEO content pages", () => {
     const entries = sitemap();
 
-    expect(entries).toHaveLength(1);
+    expect(entries).toHaveLength(5);
     expect(entries[0]?.url).toBe(SITE.url);
+    expect(entries[0]?.priority).toBe(1);
+
+    const paths = entries.map((e) => new URL(e.url).pathname);
+    expect(paths).toContain("/");
+    expect(paths).toContain("/servers");
+    expect(paths).toContain("/methodology");
+    expect(paths).toContain("/improve-ping");
+    expect(paths).toContain("/compare");
   });
 });
 
