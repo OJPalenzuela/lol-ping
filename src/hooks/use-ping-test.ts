@@ -73,6 +73,7 @@ export function usePingTest(opts: UsePingTestOptions = {}) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const inFlight = useRef(false);
+  const hasResults = useRef(false);
   const monitorRef = useRef(false);
   const pingAllRef = useRef(pingAll);
   const runRef = useRef<() => void>(() => {});
@@ -80,10 +81,16 @@ export function usePingTest(opts: UsePingTestOptions = {}) {
   const run = () => {
     if (inFlight.current) return; // never overlap runs
     inFlight.current = true;
-    dispatch({ type: "start" });
+
+    // Only show skeleton on first run — keep stale results visible during refresh
+    if (!hasResults.current) {
+      dispatch({ type: "start" });
+    }
+
     pingAllRef
       .current(REGIONS)
       .then((results) => {
+        hasResults.current = true;
         const sorted = sortResults(results);
         saveHistory(sorted);
         dispatch({
