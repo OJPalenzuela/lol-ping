@@ -67,7 +67,7 @@ export default function ImprovePingPage() {
 
       <ol className="flex flex-col gap-6">
         {TIPS.map((tip, index) => (
-          <li key={index} className="flex flex-col gap-2">
+          <li key={tip.title} className="flex flex-col gap-2">
             <h2 className="text-lg font-semibold">
               {index + 1}. {tip.title}
             </h2>
