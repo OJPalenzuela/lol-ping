@@ -1,0 +1,56 @@
+schema: spec-driven
+
+context: |
+  Stack: Next.js 16.3 (App Router), React 19.2, TypeScript 5 (strict), Tailwind CSS 4
+  Package manager: pnpm 10.32.1
+  Architecture: Next.js App Router, RSC, src/ directory
+  Testing: Vitest 4.1.10 (jsdom, @testing-library/react, @ alias)
+  Lint: ESLint 9 (eslint-config-next)
+  Type check: tsc (noEmit, strict)
+  Format: Prettier 3.9.6 (prettier-plugin-tailwindcss)
+
+testing:
+  strict_tdd: true
+  test_command: "pnpm test"
+  test_watch_command: "pnpm test:watch"
+  runner: vitest
+  runner_version: "4.1.10"
+  environment: jsdom
+  setup_file: vitest.setup.ts
+  layers:
+    unit: vitest
+    integration: "@testing-library/react"
+    e2e: null
+  coverage_available: false
+  coverage_command: null
+  quality:
+    linter: "pnpm lint"
+    type_checker: "npx tsc --noEmit"
+    formatter: "pnpm format"
+    formatter_check: "pnpm format:check"
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    guidelines:
+      - Follow existing code patterns
+      - Use React 19 patterns (no useMemo/useCallback)
+      - React Compiler is enabled
+    tdd: true
+    test_command: "pnpm test"
+  verify:
+    test_command: "pnpm test"
+    build_command: "pnpm build"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
