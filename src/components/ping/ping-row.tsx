@@ -8,8 +8,8 @@ import { PingBadge } from "./ping-badge";
 import { PingError } from "./ping-error";
 
 /** Compact sparkline dimensions for inline row display. */
-const ROW_SPARKLINE_W = 56;
-const ROW_SPARKLINE_H = 16;
+const ROW_SPARKLINE_W = 80;
+const ROW_SPARKLINE_H = 24;
 
 interface PingRowProps {
   result: PingResult;
@@ -46,13 +46,13 @@ export function PingRow({ result, history, isBest, rank }: PingRowProps) {
       </span>
 
       {/* Inline trend sparkline */}
-      <span className="hidden w-14 shrink-0 sm:block" aria-hidden="true">
+      <span className="hidden w-20 shrink-0 sm:block" aria-hidden="true">
         {hasTrend ? (
           <svg
             role="img"
             aria-label={`Ping trend for ${result.region.name}`}
             viewBox={`0 0 ${ROW_SPARKLINE_W} ${ROW_SPARKLINE_H}`}
-            className="text-gold/60 h-4 w-14"
+            className="text-gold/60 h-6 w-20"
           >
             <polyline
               points={points}
@@ -65,7 +65,7 @@ export function PingRow({ result, history, isBest, rank }: PingRowProps) {
         ) : (
           <svg
             viewBox={`0 0 ${ROW_SPARKLINE_W} ${ROW_SPARKLINE_H}`}
-            className="text-border h-4 w-14"
+            className="text-border h-6 w-20"
           >
             <line
               x1="0"
