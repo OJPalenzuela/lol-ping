@@ -1,10 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
+import { sparklinePoints } from "@/lib/sparkline";
 import { REGIONS } from "@/lib/regions";
 import type { HistoryEntry } from "@/types/ping";
 
-import { PingHistory, sparklinePoints } from "./ping-history";
+import { PingHistory } from "./ping-history";
 
 function entries(latencies: number[]): HistoryEntry[] {
   return latencies.map((latencyMs, index) => ({
