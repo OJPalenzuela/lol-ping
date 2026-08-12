@@ -46,13 +46,13 @@ Commit boundary: each RED+GREEN pair = one conventional commit (`test:` + `feat:
 
 ## Phase 3: Theme + Components (PR 3, PR 4)
 
-- [ ] 3.1 GREEN: `pnpm dlx shadcn@latest add card skeleton badge`
-- [ ] 3.2 GREEN: `src/app/globals.css` — dark-only tokens (bg `#0a0e1a`, gold `#c8aa6e`), 4 tier colors, tabular-nums, reduced-motion, visible focus ring [theme]
-- [ ] 3.3 RED: `src/components/ping/ping-badge.test.tsx` — tier = color + icon/text, never color-only [ping-testing]
-- [ ] 3.4 GREEN: `ping-badge.tsx` (latency text + tier icon) + `ping-error.tsx` (timeout/network/blocked; CN timeout labeled "expected") [ping-testing]
-- [ ] 3.5 RED: `src/components/ping/ping-row.test.tsx` — sorted order render, best highlighted, deterministic tie-break [ping-testing]
-- [ ] 3.6 GREEN: `ping-row.tsx` — rank, flag, name, badge; `isBest` highlight
-- [ ] 3.7 GREEN: `monitor-toggle.tsx` (44px target, text/icon running|paused|idle) + `ping-skeleton.tsx` [ping-monitor]
+- [x] 3.1 GREEN: `pnpm dlx shadcn@latest add card skeleton badge`
+- [x] 3.2 GREEN: `src/app/globals.css` — dark-only tokens (bg `#0a0e1a`, gold `#c8aa6e`), 4 tier colors, tabular-nums, reduced-motion, visible focus ring [theme]
+- [x] 3.3 RED: `src/components/ping/ping-badge.test.tsx` — tier = color + icon/text, never color-only [ping-testing]
+- [x] 3.4 GREEN: `ping-badge.tsx` (latency text + tier icon) + `ping-error.tsx` (timeout/network/blocked; CN timeout labeled "expected") [ping-testing]
+- [x] 3.5 RED: `src/components/ping/ping-row.test.tsx` — sorted order render, best highlighted, deterministic tie-break [ping-testing]
+- [x] 3.6 GREEN: `ping-row.tsx` — rank, flag, name, badge; `isBest` highlight
+- [x] 3.7 GREEN: `monitor-toggle.tsx` (44px target, text/icon running|paused|idle) + `ping-skeleton.tsx` [ping-monitor]
 - [ ] 3.8 GREEN: `ping-history.tsx` — hand-rolled SVG sparkline (≥2 entries), accessible name, placeholder below, localStorage read in effect only [ping-history]
 - [ ] 3.9 GREEN: `ping-panel.tsx` — composes hook + rows + toggle + history; results region `aria-live="polite"` + `aria-busy` [site-seo]
 
