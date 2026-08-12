@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Zap } from "lucide-react";
+import { Loader2, RefreshCw, Zap } from "lucide-react";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -34,18 +35,35 @@ export function PingPanel() {
   }, []);
 
   const paused = state.monitorActive && !visible;
+  const busy = state.status === "loading" || state.updating;
+  const Icon = state.status === "loading" ? Loader2 : Zap;
 
   return (
     <Card id="ping-tester" aria-labelledby="ping-tester-title">
       <CardHeader>
-        <CardTitle id="ping-tester-title">Test your ping</CardTitle>
+        <div className="flex items-center gap-2">
+          <CardTitle id="ping-tester-title">Test your ping</CardTitle>
+          {state.updating && (
+            <Badge
+              variant="secondary"
+              className="animate-in fade-in gap-1 text-xs"
+            >
+              <RefreshCw className="size-3 animate-spin" aria-hidden="true" />
+              Updating
+            </Badge>
+          )}
+        </div>
         <CardAction>
           <div className="flex items-center gap-3">
             <Button
               onClick={startPing}
+              disabled={busy}
               className="bg-gold text-background hover:bg-gold/90 rounded-full"
             >
-              <Zap className="size-4" aria-hidden="true" />
+              <Icon
+                className={state.status === "loading" ? "animate-spin" : ""}
+                aria-hidden="true"
+              />
               Test ping
             </Button>
             <MonitorToggle
@@ -66,19 +84,20 @@ export function PingPanel() {
         >
           {state.status === "loading" && <PingSkeleton />}
 
-          {state.status === "results" && (
-            <ul className="flex flex-col gap-2">
-              {state.results.map((result, index) => (
-                <PingRow
-                  key={result.region.code}
-                  result={result}
-                  history={state.history[result.region.code] ?? []}
-                  isBest={index === 0 && result.latencyMs !== null}
-                  rank={index + 1}
-                />
-              ))}
-            </ul>
-          )}
+          {(state.status === "results" || state.updating) &&
+            state.results.length > 0 && (
+              <ul className="flex flex-col gap-2">
+                {state.results.map((result, index) => (
+                  <PingRow
+                    key={result.region.code}
+                    result={result}
+                    history={state.history[result.region.code] ?? []}
+                    isBest={index === 0 && result.latencyMs !== null}
+                    rank={index + 1}
+                  />
+                ))}
+              </ul>
+            )}
 
           {state.status === "error" && (
             <p

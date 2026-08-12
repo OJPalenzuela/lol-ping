@@ -15,6 +15,8 @@ export interface PingTestState {
   history: Record<string, HistoryEntry[]>;
   monitorActive: boolean;
   lastUpdated: Date | null;
+  /** Background refresh in progress — keep current results visible. */
+  updating: boolean;
 }
 
 export interface UsePingTestOptions {
@@ -28,10 +30,12 @@ const initialState: PingTestState = {
   history: {},
   monitorActive: false,
   lastUpdated: null,
+  updating: false,
 };
 
 type Action =
   | { type: "start" }
+  | { type: "startRefresh" }
   | {
       type: "finish";
       results: PingResult[];
@@ -45,7 +49,9 @@ type Action =
 function reducer(state: PingTestState, action: Action): PingTestState {
   switch (action.type) {
     case "start":
-      return { ...state, status: "loading" };
+      return { ...state, status: "loading", updating: false };
+    case "startRefresh":
+      return { ...state, updating: true };
     case "finish": {
       const allFailed = action.results.every(
         (result) => result.latencyMs === null,
@@ -56,6 +62,7 @@ function reducer(state: PingTestState, action: Action): PingTestState {
         results: action.results,
         history: action.history,
         lastUpdated: action.updatedAt,
+        updating: false,
       };
     }
     case "setMonitor":
@@ -85,6 +92,8 @@ export function usePingTest(opts: UsePingTestOptions = {}) {
     // Only show skeleton on first run — keep stale results visible during refresh
     if (!hasResults.current) {
       dispatch({ type: "start" });
+    } else {
+      dispatch({ type: "startRefresh" });
     }
 
     pingAllRef
