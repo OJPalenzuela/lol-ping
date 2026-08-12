@@ -10,7 +10,7 @@ import { PingError } from "./ping-error";
 /** How many recent history entries to keep in the inline sparkline. */
 const SPARKLINE_MAX_ENTRIES = 30;
 /** Sparkline dimensions. */
-const ROW_SPARKLINE_W = 100;
+const ROW_SPARKLINE_W = 256;
 const ROW_SPARKLINE_H = 28;
 
 interface PingRowProps {
@@ -20,13 +20,11 @@ interface PingRowProps {
   rank: number;
 }
 
-/** One region in the results list: rank, flag, name, trend sparkline, latency badge or error. */
+/** One region in the results list: rank, flag, name, Best badge, trend sparkline, latency. */
 export function PingRow({ result, history, isBest, rank }: PingRowProps) {
   const failed = result.latencyMs === null;
-  // Keep only the last N entries so the sparkline doesn't compact over time.
   const entries = (history ?? []).slice(-SPARKLINE_MAX_ENTRIES);
   const hasTrend = entries.length >= 2;
-  // Persisted newest-first; plot oldest → newest left-to-right.
   const points = hasTrend
     ? sparklinePoints([...entries].reverse(), ROW_SPARKLINE_W, ROW_SPARKLINE_H)
     : "";
@@ -44,18 +42,24 @@ export function PingRow({ result, history, isBest, rank }: PingRowProps) {
       <span className="text-xl" aria-hidden="true">
         {result.region.flag}
       </span>
-      <span className="min-w-0 flex-1 truncate font-medium">
-        {result.region.name}
+      <span className="flex min-w-0 flex-1 items-center gap-2 truncate">
+        <span className="truncate font-medium">{result.region.name}</span>
+        {isBest && (
+          <span className="border-gold/60 text-gold inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold">
+            <Trophy className="size-3.5" aria-hidden="true" />
+            Best
+          </span>
+        )}
       </span>
 
       {/* Inline trend sparkline */}
-      <span className="hidden w-[100px] shrink-0 sm:block" aria-hidden="true">
+      <span className="hidden w-64 shrink-0 sm:block" aria-hidden="true">
         {hasTrend ? (
           <svg
             role="img"
             aria-label={`Ping trend for ${result.region.name}`}
             viewBox={`0 0 ${ROW_SPARKLINE_W} ${ROW_SPARKLINE_H}`}
-            className="text-gold/60 h-7 w-[100px]"
+            className="text-gold/60 h-7 w-64"
           >
             <polyline
               points={points}
@@ -68,7 +72,7 @@ export function PingRow({ result, history, isBest, rank }: PingRowProps) {
         ) : (
           <svg
             viewBox={`0 0 ${ROW_SPARKLINE_W} ${ROW_SPARKLINE_H}`}
-            className="text-border h-7 w-[100px]"
+            className="text-border h-7 w-64"
           >
             <line
               x1="0"
@@ -83,12 +87,6 @@ export function PingRow({ result, history, isBest, rank }: PingRowProps) {
         )}
       </span>
 
-      {isBest && (
-        <span className="border-gold/60 text-gold inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold">
-          <Trophy className="size-3.5" aria-hidden="true" />
-          Best
-        </span>
-      )}
       {failed && result.failure ? (
         <PingError failure={result.failure} region={result.region} />
       ) : (
