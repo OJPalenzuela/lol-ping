@@ -32,12 +32,12 @@ Commit boundary: each RED+GREEN pair = one conventional commit (`test:` + `feat:
 
 ## Phase 1: Core Domain Libraries (PR 1)
 
-- [ ] 1.1 RED: `src/lib/thresholds.test.ts` — boundaries 99/100/199/200/299/300 → green/yellow/yellow/orange/orange/red [ping-testing]
-- [ ] 1.2 GREEN: `src/lib/thresholds.ts` — threshold consts + `classifyLatency()`
-- [ ] 1.3 RED: `src/lib/ping.test.ts` — median 100ms, outlier 80/500/90→90, 4s abort via fake timers, one region fails→9 succeed, timeout/network/blocked classification [ping-testing]
-- [ ] 1.4 GREEN: `src/types/ping.ts` (types per design) + `src/lib/regions.ts` (10 regions, endpoints) + `src/lib/ping.ts` (`pingRegion`/`pingAllRegions`, injectable fetch, AbortController)
-- [ ] 1.5 RED: `src/lib/history.test.ts` — cap-50 eviction, newest-first, failed region not persisted, quota throw degrades gracefully [ping-history]
-- [ ] 1.6 GREEN: `src/lib/history.ts` — `loadHistory`/`saveHistory` with try/catch
+- [x] 1.1 RED: `src/lib/thresholds.test.ts` — boundaries 99/100/199/200/299/300 → green/yellow/yellow/orange/orange/red [ping-testing]
+- [x] 1.2 GREEN: `src/lib/thresholds.ts` — threshold consts + `classifyLatency()`
+- [x] 1.3 RED: `src/lib/ping.test.ts` — median 100ms, outlier 80/500/90→90, 4s abort via fake timers, one region fails→9 succeed, timeout/network/blocked classification [ping-testing]
+- [x] 1.4 GREEN: `src/types/ping.ts` (types per design) + `src/lib/regions.ts` (10 regions, endpoints) + `src/lib/ping.ts` (`pingRegion`/`pingAllRegions`, injectable fetch, AbortController)
+- [x] 1.5 RED: `src/lib/history.test.ts` — cap-50 eviction, newest-first, failed region not persisted, quota throw degrades gracefully [ping-history]
+- [x] 1.6 GREEN: `src/lib/history.ts` — `loadHistory`/`saveHistory` with try/catch
 
 ## Phase 2: Monitor State Machine (PR 2)
 
