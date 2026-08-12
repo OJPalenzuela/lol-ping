@@ -15,6 +15,10 @@ export const SITE = {
   locale: "en_US",
 } as const;
 
+/** Full home-page title (root layout and root page share the same segment,
+ *  so the layout's title template does not apply to it). */
+export const PAGE_TITLE = "LoL Ping Test — Check Your League of Legends Ping";
+
 /** Visible FAQ — the single source of truth for the FAQPage JSON-LD parity. */
 export const FAQ_ITEMS: FaqItem[] = [
   {

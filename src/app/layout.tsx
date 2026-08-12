@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Chakra_Petch, Geist } from "next/font/google";
 
-import { SITE } from "@/lib/seo";
+import { PAGE_TITLE, SITE } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -16,12 +16,10 @@ const chakraPetch = Chakra_Petch({
   weight: ["500", "600", "700"],
 });
 
-const pageTitle = "LoL Ping Test — Check Your League of Legends Ping";
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: pageTitle,
+    default: PAGE_TITLE,
     template: "%s | LoL Ping Test",
   },
   description: SITE.description,
@@ -32,13 +30,13 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: SITE.name,
-    title: pageTitle,
+    title: PAGE_TITLE,
     description: SITE.description,
     locale: SITE.locale,
   },
   twitter: {
     card: "summary",
-    title: pageTitle,
+    title: PAGE_TITLE,
     description: SITE.description,
   },
 };
